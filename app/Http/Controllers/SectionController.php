@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Customer;
+use App\Section;
+use App\Item;
+use Illuminate\Support\Facades\DB;
 
-class CustomerController extends Controller
+class SectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +16,22 @@ class CustomerController extends Controller
      */
     public function index()
     {
+
+        // $model = DB::table('sections')
+        //             ->join('items', 'sections.id', '=', 'items.section_id')
+        //             ->select('items.contenido')
+        //             ->where('sections.id', 1)
+        //             ->get();
+
+       
+
+        $section = Section::first();
+
+        $items = $section->items;
+
+        return $items;
+        
+        
         
     }
 
@@ -35,20 +53,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-
-        $customer = new Customer();
-
-        $customer->full_name = $request['full_name'];
-        $customer->email = $request['email'];
-        $customer->telefono = $request['telefono'];
-        
-        $data = json_decode($customer, true);
-        
-        Customer::insert($data);
-
-        return $data;
-
-
+        //
     }
 
     /**

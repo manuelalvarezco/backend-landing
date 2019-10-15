@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('images','ImageController')->middleware('cors');
 Route::resource('customer','CustomerController')->middleware('cors');
+Route::resource('section','SectionController')->middleware('cors');
