@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Customer;
-use App\Mail\SendMail;
-use Illuminate\Support\Facades\Mail;
+use App\Titulo;
+use Illuminate\Support\Facades\Response;
 
-class CustomerController extends Controller
+
+class TituloController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,26 @@ class CustomerController extends Controller
      */
     public function index()
     {
+        $titulos = Titulo::all();
+
+        $obj = array();
         
+        foreach ($titulos as $titulo) {
+
+            array_push( $obj,
+
+                array(
+                    "titulo" => $titulo->titulo,
+                    "contenido" => array(
+                        "items" => explode('.',$titulo->items),
+                    )
+                )
+            );
+
+        }
+
+        $response = Response::json($obj, 200);
+        return $response;
     }
 
     /**
@@ -37,26 +56,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-
-        $customer = new Customer();
-
-        $customer->full_name = $request['full_name'];
-        $customer->email = $request['email'];
-        $customer->telefono = $request['phone'];
-        
-        $data = json_decode($customer, true);
-        
-        Customer::insert($data);
-
-        $data = array(
-            'nombre' =>  $request['full_name'],
-            'correo' => $request['email'],
-            'numero' => $request['phone']
-        );
-
-        Mail::to($request['email'])->send(new SendMail($data));
-
-        return $data;
+        //
     }
 
     /**

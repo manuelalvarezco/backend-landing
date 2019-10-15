@@ -17,6 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('images','ImageController')->middleware('cors');
-Route::resource('customer','CustomerController')->middleware('cors');
-Route::resource('section','SectionController')->middleware('cors');
+Route::resource('images','ImageController');
+Route::resource('customer','CustomerController');
+Route::resource('titulos','TituloController');
